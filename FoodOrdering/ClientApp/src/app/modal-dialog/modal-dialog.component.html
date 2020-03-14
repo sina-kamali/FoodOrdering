@@ -1,0 +1,30 @@
+<div class="modal fade" id="{{modalService.id}}" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog {{modalService.dialogClass}} {{modalService.size}}" role="document" [ngStyle]="modalService.style">
+    <div class="modal-content" *ngIf="!modalService.overrideModal">
+      <div class="modal-header" *ngIf="modalService.title && !modalService.isTitleHidden">
+        <h5 class="modal-title" id="exampleModalLabel">{{modalService.title}}</h5>
+      </div>
+      <div class="modal-body">
+        <div class="row">
+          <div class="col-12" *ngIf="modalService.text">
+            {{modalService.text}}
+          </div>
+          <div class="col-12" *ngIf="modalService.template" >
+            <app-add-dynamic  [template]="modalService.template" [templateInputs]="modalService.data"></app-add-dynamic>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer">
+        <button *ngFor="let button of modalService.buttons" class="btn {{button.cssClass}}" [ngStyle]="button.cssStyle" type="button" (click)="button.click()">{{button.label}}</button>
+        <button *ngIf="!modalService.isCancelButtonHidden" type="button" class="btn btn-secondary" data-dismiss="modal">{{modalService.cancelLabel}}</button>
+      </div>
+    </div>
+    <div class="modal-content" *ngIf="modalService.overrideModal" style="border: none; background-color: transparent;">
+      <app-add-dynamic  [template]="modalService.template" [templateInputs]="modalService.data"></app-add-dynamic>
+      <div class="col-12 {{modalService.buttonsHolderClass}}" [ngStyle]="modalService.buttonsHolderStyles">
+        <button *ngFor="let button of modalService.buttons" class="btn {{button.class}}" [ngStyle]="button.style" type="button" (click)="button.click()">{{button.label}}</button>
+        <button *ngIf="!modalService.isCancelButtonHidden" type="button" class="btn btn-danger {{modalService.cancelClasses}}" data-dismiss="modal" [ngStyle]="modalService.cancelStyles">{{modalService.cancelLabel}}</button>
+      </div>
+    </div>
+  </div>
+</div>
