@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
+using FoodOrdering.Repositories;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
 
@@ -26,6 +27,7 @@ namespace FoodOrdering.Controllers
         [HttpGet]
         public IEnumerable<WeatherForecast> Get()
         {
+            //new SendGridRepository().sendEmail();
             var rng = new Random();
             return Enumerable.Range(1, 5).Select(index => new WeatherForecast
             {
