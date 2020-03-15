@@ -20,6 +20,23 @@ namespace FoodOrdering
         // This method gets called by the runtime. Use this method to add services to the container.
         public void ConfigureServices(IServiceCollection services)
         {
+#if DEBUG // Add service and create Policy with options -- only for testing local connections
+
+            services.AddCors(options =>
+
+            {
+
+                options.AddPolicy("AllowCors",
+
+                    builder => builder.AllowAnyOrigin()
+
+                    .AllowAnyMethod()
+
+                    .AllowAnyHeader());
+
+            });
+
+#endif
             services.AddControllersWithViews();
             // In production, the Angular files will be served from this directory
             services.AddSpaStaticFiles(configuration =>
@@ -48,6 +65,12 @@ namespace FoodOrdering
             {
                 app.UseSpaStaticFiles();
             }
+
+#if DEBUG // only for testing local connections
+
+            app.UseCors("AllowCors");
+
+#endif
 
             app.UseRouting();
 
